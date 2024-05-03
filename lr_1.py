@@ -1,6 +1,5 @@
 from sklearn.linear_model import LinearRegression
 import pandas as pd
-import numpy as np
 from math import sqrt
 from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt

@@ -94,7 +94,7 @@ def train_model():
         plt.plot(df.index[-len(y_test):], y_test, color='blue', label='Actual')
         plt.plot(df.index[-len(closing_price):], closing_price, color='green', label='Predictions')
         plt.legend()
-        plt.title('LSTM predicted Result\nRMSE: {:.2f}'.format(rms))
+        plt.title('LSTM Predicted Result\nEpochs: {}\nComplexity: {}\nRMSE: {:.2f}'.format(epochs, complexity, rms))
         plt.ylabel('Price')
         plt.show()
 
@@ -375,9 +375,10 @@ def auto_predict():
 def quit_application():
     root.destroy()
 
+
 # Create GUI window
 root = tk.Tk()
-root.title("LSTM Model Trainer")
+root.title("Stock price predictor")
 
 # Add widgets to the window
 file_label = tk.Label(root, text="Select Dataset File:")
@@ -399,17 +400,20 @@ complexity_var.set("Simple")
 complexity_option = tk.OptionMenu(root, complexity_var, "Simple", "Moderate", "Complex")
 complexity_option.grid(row=2, column=1)
 
-train_button = tk.Button(root, text="Train Model", command=train_model)
-train_button.grid(row=3, column=0)
+manual_label = tk.Label(root, text="Manual Mode")
+manual_label.grid(row=3, column=0)
+train_button = tk.Button(root, text="Train Model", command=train_model, fg='green')
+train_button.grid(row=3, column=1)
+predict_button = tk.Button(root, text="Predict", command=predict_next_time_point, fg='green')
+predict_button.grid(row=3, column=2)
 
-predict_button = tk.Button(root, text="Predict", command=predict_next_time_point)
-predict_button.grid(row=3, column=1)
-
-auto_predict_button = tk.Button(root, text="Auto Predict", command=auto_predict)
-auto_predict_button.grid(row=3, column=2)
+auto_label = tk.Label(root, text="Auto Mode")
+auto_label.grid(row=4, column=0)
+auto_predict_button = tk.Button(root, text="Automatic Predict", command=auto_predict)
+auto_predict_button.grid(row=4, column=1)
 
 quit_button = tk.Button(root, text="Quit", command=quit_application, fg='red')
-quit_button.grid(row=4, column=1)
+quit_button.grid(row=5, column=1)
 
 # Run the GUI loop
 root.mainloop()
